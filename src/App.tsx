@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { productList } from "./components/Data";
+import ProductCard from "./components/ProductCard";
+import Modal from "./utils/Modal";
+import Button from "./components/UI/Button";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+   const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 >Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+  function closeModal() {
+    setIsOpen(false);
+  }
+ 
+  function openModal() {
+    setIsOpen(true);
+  }
 
-export default App
+
+   const RanderProductList=productList.map(product=> <ProductCard product={product}  key={product.id} />  )
+  return <main className="container mx-auto">
+    <div className="flex justify-end me-5">
+          <Button textBtn="add product" className="bg-indigo-700 " width="w-fit"  onClick={openModal} />
+
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  m-2 rounded-md gap-2 p-2">
+      {RanderProductList}
+      
+ 
+    </div>
+    <Modal isOpen={isOpen} closeModal={closeModal}  title="add prodect" />
+    
+      
+   
+      
+
+    
+      
+   
+      
+   
+
+  </main>;
+};
+export default App;
