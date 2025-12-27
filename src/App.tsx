@@ -16,6 +16,9 @@ const App = () => {
   }
 
 
+  
+
+
    const RanderProductList=productList.map(product=> <ProductCard product={product}  key={product.id} />  )
   return <main className="container mx-auto">
     <div className="flex justify-end me-5">

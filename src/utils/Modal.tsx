@@ -1,6 +1,8 @@
-import {   Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import Button from "../components/UI/Button";
+import { formInputList } from "../components/Data";
+import Input from "../components/UI/Input";
 
 interface IProps {
   title?: string;
@@ -9,12 +11,16 @@ interface IProps {
 }
 
 const Modal = (prop: IProps) => {
- 
+  const randerformInputList = formInputList.map((input) => (
+    <div className="flex flex-col">
+      <label className="mb-[1px] text-sm font-medium text-gray-700" htmlFor={input.id}>{input.label}</label>
+     
+      <Input  type={input.type} id={input.id} name={input.name}  />
+    </div>
+  ));
 
   return (
     <>
-      
-
       <Transition appear show={prop.isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={prop.closeModal}>
           <Transition.Child
@@ -42,16 +48,17 @@ const Modal = (prop: IProps) => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   {prop.title && (
-                    <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                    <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 text-center mb-5">
                       {prop.title}
                     </Dialog.Title>
                   )}
 
-                  <div className="mt-4 flex gap-3">
-                   <Button textBtn="submit" className="bg-blue-500 hover:bg-blue-600" />
-                   <Button textBtn="cancel" className="bg-blue-500 hover:bg-blue-600" />
-
-                    
+                  <div className=" space-y-3">
+                    {randerformInputList}
+                    <div className="mt-4 flex space-x-3">
+                      <Button textBtn="submit" className="bg-indigo-700 hover:bg-indigo-400" />
+                      <Button textBtn="cancel" className="bg-gray-600 hover:bg-gray-400" />
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

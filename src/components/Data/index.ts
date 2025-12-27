@@ -1,4 +1,4 @@
-import type { IProduct } from "../interface/interface";
+import type { IFormInput, IProduct } from "../interface/interface";
 export const productList: IProduct[] = [
   {
     id: "1",
@@ -15,7 +15,8 @@ export const productList: IProduct[] = [
   {
     id: "2",
     title: "Athletic Sneakers",
-    description: "Athletic Sneakers, Black Mesh Knit, Slip-On Walking Shoes, Lightweight Casual Sport Sneakers with Rubber Sole, Unisex Adult",
+    description:
+      "Athletic Sneakers, Black Mesh Knit, Slip-On Walking Shoes, Lightweight Casual Sport Sneakers with Rubber Sole, Unisex Adult",
     imageURL: "https://m.media-amazon.com/images/I/41YKD-8y+7L._AC_SX575_.jpg",
     price: "4500",
     color: ["", ""],
@@ -39,7 +40,8 @@ export const productList: IProduct[] = [
   {
     id: "4",
     title: "Athletic Running Shoes",
-    description: "Athletic Running Shoes, Black Mesh, Performance Sports Sneakers with Reflective Design, Textured Rubber Sole",
+    description:
+      "Athletic Running Shoes, Black Mesh, Performance Sports Sneakers with Reflective Design, Textured Rubber Sole",
     imageURL: "https://m.media-amazon.com/images/I/51ADuH5GMZL._AC_SX575_.jpg",
     price: "1900",
     color: ["", ""],
@@ -51,7 +53,8 @@ export const productList: IProduct[] = [
   {
     id: "5",
     title: "Oversize Fit Streetwear T-Shirt",
-    description: "Oversize Fit Streetwear T-Shirt – “Midnight” – Graphic Printed, 100% Cotton, Unisex – Black",
+    description:
+      "Oversize Fit Streetwear T-Shirt – “Midnight” – Graphic Printed, 100% Cotton, Unisex – Black",
     imageURL: "https://m.media-amazon.com/images/I/61R-8LXkE7L._AC_SX569_.jpg",
     price: "1900",
     color: ["", ""],
@@ -63,7 +66,8 @@ export const productList: IProduct[] = [
   {
     id: "6",
     title: "Oversize Fit Streetwear T-Shirt",
-    description: "Oversize Fit Streetwear T-Shirt – “It’s What We Are” – Graphic Printed, 100% Cotton, Unisex – Petrol Green",
+    description:
+      "Oversize Fit Streetwear T-Shirt – “It’s What We Are” – Graphic Printed, 100% Cotton, Unisex – Petrol Green",
     imageURL: "https://m.media-amazon.com/images/I/71wGIBeZ6lL._AC_SX425_.jpg",
     price: "1900",
     color: ["", ""],
@@ -71,5 +75,32 @@ export const productList: IProduct[] = [
       name: "T-Shirt",
       imageURL: "https://m.media-amazon.com/images/I/61R-8LXkE7L._AC_SX569_.jpg",
     },
+  },
+];
+
+export const formInputList :IFormInput[] = [
+  {
+    id: "title",
+    label: "title",
+    name: "title",
+    type: "text",
+  },
+  {
+    id: "description",
+    label: " product description",
+    name: "description",
+    type: "text",
+  },
+  {
+    id: "imageUrl",
+    label: " product imageURl",
+    name: "imageUrl",
+    type: "text",
+  },
+  {
+    id: "price",
+    label: " product price",
+    name: "price",
+    type: "text",
   },
 ];
