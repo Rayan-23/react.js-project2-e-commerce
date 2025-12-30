@@ -1,12 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, type ReactNode } from "react";
-import Button from "../components/UI/Button";
 
 
 interface IProps {
   title?: string;
   isOpen: boolean;
-  randerformInputList: ReactNode;
+  children: ReactNode;
+  
+
+  
   closeModal: () => void;
 }
 
@@ -48,13 +50,9 @@ const Modal = (prop: IProps) => {
                     </Dialog.Title>
                   )}
 
-                  <form className=" space-y-3">
-                    {prop.randerformInputList}
-                    <div className="mt-4 flex space-x-3">
-                      <Button textBtn="submit" className="bg-indigo-700 hover:bg-indigo-400" />
-                      <Button textBtn="cancel" className="bg-gray-600 hover:bg-gray-400" />
-                    </div>
-                  </form>
+                  <div>
+                    {prop.children}
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

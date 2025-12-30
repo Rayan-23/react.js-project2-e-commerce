@@ -1,14 +1,14 @@
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { formInputList, productList } from "./components/Data";
 import ProductCard from "./components/ProductCard";
 import Modal from "./utils/Modal";
 import Button from "./components/UI/Button";
 import Input from "./components/UI/Input";
 import type { IProduct } from "./components/interface/interface";
+import { productValidation } from "./validation";
+import ErrorMsg from "./components/ErrorMsg";
 const App = () => {
-  // STATE---------------->
-  const [isOpen, setIsOpen] = useState(false);
-  const [product, setProduct] = useState<IProduct>({
+  const defaultProduct = {
     title: "",
     description: "",
     imageURL: "",
@@ -18,20 +18,52 @@ const App = () => {
       name: "",
       imageURL: "",
     },
-  });
+  };
+  // STATE---------------->
+  const [isOpen, setIsOpen] = useState(false);
+  const [product, setProduct] = useState<IProduct>(defaultProduct);
+  const [error, setError] = useState({ title: "", description: "",imageURL: "", price: ""});
 
   //  HANDER-------------->
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
+  const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+        const { title, description, price, imageURL } = product;
 
+    const errors = productValidation({
+      title,
+      description,
+      imageURL,
+      price,
+    });
+
+    const hasErrorMsg = Object.values(errors).some((valu) => valu == "") &&
+      Object.values(errors).every((valu) => valu == "");
+      console.log(hasErrorMsg)
+    if (!hasErrorMsg) {
+      setError(errors)
+
+        return;
+      }
+      
+      
+      
+  };
+
+  const onCancel = () => {
+    setProduct(defaultProduct);
+    closeModal();
+  };
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setProduct({ ...product, [name]: value });
+    setError({...error,[name]:""})
   };
 
   //  RANDER product------------->
   const randerformInputList = formInputList.map((input) => (
-    <div className="flex flex-col">
+    <div className="flex flex-col" key={input.id}>
       <label className="mb-[1px] text-sm font-medium text-gray-700" htmlFor={input.id}>
         {input.label}
       </label>
@@ -42,11 +74,13 @@ const App = () => {
         value={product[input.name]}
         onChange={onChangeHandler}
       />
+      <ErrorMsg   massage={error[input.name]}/>
     </div>
   ));
   const RanderProductList = productList.map((product) => (
     <ProductCard product={product} key={product.id} />
   ));
+
   return (
     <main className="container mx-auto">
       <div className="flex justify-end me-5">
@@ -64,8 +98,16 @@ const App = () => {
         isOpen={isOpen}
         closeModal={closeModal}
         title="add prodect"
-        randerformInputList={randerformInputList}
-      />
+        // randerformInputList={randerformInputList}
+      >
+        <form className=" space-y-3" onSubmit={submitHandler}>
+          {randerformInputList}
+          <div className="mt-4 flex space-x-3">
+            <Button textBtn="submit" className="bg-indigo-700 hover:bg-indigo-400" />
+            <Button textBtn="cancel" className="bg-gray-600 hover:bg-gray-400" onClick={onCancel} />
+          </div>
+        </form>
+      </Modal>
     </main>
   );
 };
