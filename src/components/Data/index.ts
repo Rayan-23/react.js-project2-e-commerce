@@ -1,7 +1,11 @@
 import type { IFormInput, IProduct } from "../interface/interface";
+
+import { v4 as uuid } from "uuid";
+
+
 export const productList: IProduct[] = [
   {
-    id: "1",
+    id: uuid(),
     title: "adidas Cloudfoam Comfy mens ",
     description: "Regular fit Elastic lace closure Textile and synthetic upper",
     imageURL: "https://m.media-amazon.com/images/I/81ypaVyBE2L._AC_SY575_.jpg",
@@ -13,7 +17,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "2",
+    id: uuid(),
     title: "Athletic Sneakers",
     description:
       "Athletic Sneakers, Black Mesh Knit, Slip-On Walking Shoes, Lightweight Casual Sport Sneakers with Rubber Sole, Unisex Adult",
@@ -26,7 +30,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "3",
+    id: uuid(),
     title: "slipper",
     description: "Shib Square, slipper, unisex-adult, Slipper",
     imageURL: "https://m.media-amazon.com/images/I/71UBYN0ZZ0L._AC_SX575_.jpg",
@@ -38,7 +42,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "4",
+    id: uuid(),
     title: "Athletic Running Shoes",
     description:
       "Athletic Running Shoes, Black Mesh, Performance Sports Sneakers with Reflective Design, Textured Rubber Sole",
@@ -51,7 +55,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "5",
+    id: uuid(),
     title: "Oversize Fit Streetwear T-Shirt",
     description:
       "Oversize Fit Streetwear T-Shirt – “Midnight” – Graphic Printed, 100% Cotton, Unisex – Black",
@@ -64,7 +68,7 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: "6",
+    id: uuid(),
     title: "Oversize Fit Streetwear T-Shirt",
     description:
       "Oversize Fit Streetwear T-Shirt – “It’s What We Are” – Graphic Printed, 100% Cotton, Unisex – Petrol Green",
@@ -104,3 +108,21 @@ export const formInputList :IFormInput[] = [
     type: "text",
   },
 ];
+
+
+
+export const color: string[] = [];
+
+function getRandomHexColor(): string {
+    // توليد رقم عشوائي من 0 لـ 16777215 (FFFFFF بالهكس)
+    const randomNum = Math.floor(Math.random() * 16777216);
+    // تحويل الرقم لهكس واضافة #
+    return `#${randomNum.toString(16).padStart(6, '0')}`;
+}
+
+// على سبيل المثال عايزين 10 ألوان عشوائية
+for (let i = 0; i < 10; i++) {
+    color.push(getRandomHexColor());
+}
+
+console.log(color);

@@ -1,5 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { formInputList, productList } from "./components/Data";
+import { color, formInputList, productList } from "./components/Data";
+import { v4 as uuid } from "uuid";
+
 import ProductCard from "./components/ProductCard";
 import Modal from "./utils/Modal";
 import Button from "./components/UI/Button";
@@ -7,6 +9,7 @@ import Input from "./components/UI/Input";
 import type { IProduct } from "./components/interface/interface";
 import { productValidation } from "./validation";
 import ErrorMsg from "./components/ErrorMsg";
+import CircelColor from "./components/CircelColor";
 const App = () => {
   const defaultProduct = {
     title: "",
@@ -21,15 +24,18 @@ const App = () => {
   };
   // STATE---------------->
   const [isOpen, setIsOpen] = useState(false);
+  const [tempColor, setTempColor] = useState<string[]>([]);
   const [product, setProduct] = useState<IProduct>(defaultProduct);
-  const [error, setError] = useState({ title: "", description: "",imageURL: "", price: ""});
+  const [products, setProducts] = useState<IProduct[]>(productList);
+  const [error, setError] = useState({ title: "", description: "", imageURL: "", price: "" });
 
+  console.log(tempColor);
   //  HANDER-------------->
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
   const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-        const { title, description, price, imageURL } = product;
+    const { title, description, price, imageURL } = product;
 
     const errors = productValidation({
       title,
@@ -38,17 +44,23 @@ const App = () => {
       price,
     });
 
-    const hasErrorMsg = Object.values(errors).some((valu) => valu == "") &&
+    const hasErrorMsg =
+      Object.values(errors).some((valu) => valu == "") &&
       Object.values(errors).every((valu) => valu == "");
-      console.log(hasErrorMsg)
+    console.log(hasErrorMsg);
     if (!hasErrorMsg) {
-      setError(errors)
+      setError(errors);
 
-        return;
-      }
-      
-      
-      
+
+      return;
+    }
+
+
+    setProducts((prev)=>[{...product,color:tempColor,id:uuid()},...prev])
+    setProduct(defaultProduct)
+    setTempColor([])
+    closeModal();
+
   };
 
   const onCancel = () => {
@@ -58,7 +70,7 @@ const App = () => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setProduct({ ...product, [name]: value });
-    setError({...error,[name]:""})
+    setError({ ...error, [name]: "" });
   };
 
   //  RANDER product------------->
@@ -74,11 +86,27 @@ const App = () => {
         value={product[input.name]}
         onChange={onChangeHandler}
       />
-      <ErrorMsg   massage={error[input.name]}/>
+      <ErrorMsg massage={error[input.name]} />
     </div>
   ));
-  const RanderProductList = productList.map((product) => (
+  const RanderProductList = products.map((product) => (
     <ProductCard product={product} key={product.id} />
+  ));
+
+  const RanderProductColor = color.map((color) => (
+    <CircelColor
+      key={color}
+      onClick={() => {
+        if (tempColor.includes(color)) {
+          setTempColor((prev)=>prev.filter(item=>item !==color))
+          return
+         
+        }
+
+        setTempColor((prev) => [...prev, color]);
+      }}
+      color={color}
+    />
   ));
 
   return (
@@ -102,6 +130,20 @@ const App = () => {
       >
         <form className=" space-y-3" onSubmit={submitHandler}>
           {randerformInputList}
+          <div className="flex space-x-2 my-2 items-center  flex-wrap">{RanderProductColor}</div>
+          <br />
+          <div className="grid grid-cols-5 gap-1 my-2 justify-center">
+            {tempColor.map((color) => (
+              <span
+                key={color}
+                className="p-1 mr-2 mb-1 text-sm rounded-md text-center  "
+                style={{ backgroundColor: color }}
+              >
+                {color}
+              </span>
+            ))}
+          </div>
+
           <div className="mt-4 flex space-x-3">
             <Button textBtn="submit" className="bg-indigo-700 hover:bg-indigo-400" />
             <Button textBtn="cancel" className="bg-gray-600 hover:bg-gray-400" onClick={onCancel} />
