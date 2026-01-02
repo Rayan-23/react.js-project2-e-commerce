@@ -1,7 +1,6 @@
-import type { IFormInput, IProduct } from "../interface/interface";
+import type { ICategory, IFormInput, IProduct } from "../interface/interface";
 
 import { v4 as uuid } from "uuid";
-
 
 export const productList: IProduct[] = [
   {
@@ -82,7 +81,7 @@ export const productList: IProduct[] = [
   },
 ];
 
-export const formInputList :IFormInput[] = [
+export const formInputList: IFormInput[] = [
   {
     id: "title",
     label: "title",
@@ -109,20 +108,76 @@ export const formInputList :IFormInput[] = [
   },
 ];
 
-
+export const category: ICategory[] = [
+  {
+    id: uuid(),
+    name: "Under Armour",
+    imageURL: "https://m.media-amazon.com/images/I/51u-Yu3sljL._AC_SY575_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Asics",
+    imageURL: "https://m.media-amazon.com/images/I/61V6YNkQuHL._AC_SX575_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Skechers",
+    imageURL: "https://m.media-amazon.com/images/I/81gF7jroEWL._AC_SX575_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Vans",
+    imageURL: "https://m.media-amazon.com/images/I/71FfND3gDRL._AC_SY575_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Converse",
+    imageURL: "https://m.media-amazon.com/images/I/61dquJCTV8L._AC_SY575_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "New Balance",
+    imageURL: "https://m.media-amazon.com/images/I/61m7fnIF6mL._AC_SY575_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Uniqlo",
+    imageURL: "https://m.media-amazon.com/images/I/71pR46NgCLL._AC_SY741_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "H&M",
+    imageURL: "https://m.media-amazon.com/images/I/61pl6mIQV2L._AC_SY550_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Zara",
+    imageURL: "https://m.media-amazon.com/images/I/71tXRFDV1GL._AC_SX679_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Adidas",
+    imageURL: "https://m.media-amazon.com/images/I/71-2ljhyWiL._AC_SX679_.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Nike",
+    imageURL: "https://m.media-amazon.com/images/I/519hI7z+0dL._AC_SY550_.jpg",
+  },
+];
 
 export const color: string[] = [];
 
 function getRandomHexColor(): string {
-    // توليد رقم عشوائي من 0 لـ 16777215 (FFFFFF بالهكس)
-    const randomNum = Math.floor(Math.random() * 16777216);
-    // تحويل الرقم لهكس واضافة #
-    return `#${randomNum.toString(16).padStart(6, '0')}`;
+  // توليد رقم عشوائي من 0 لـ 16777215 (FFFFFF بالهكس)
+  const randomNum = Math.floor(Math.random() * 16777216);
+  // تحويل الرقم لهكس واضافة #
+  return `#${randomNum.toString(16).padStart(6, "0")}`;
 }
 
 // على سبيل المثال عايزين 10 ألوان عشوائية
 for (let i = 0; i < 10; i++) {
-    color.push(getRandomHexColor());
+  color.push(getRandomHexColor());
 }
 
 console.log(color);
