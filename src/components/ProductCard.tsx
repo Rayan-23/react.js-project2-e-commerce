@@ -6,26 +6,27 @@ import Images from "./UI/Images";
 
 interface IProps {
   product: IProduct;
-  setproductTOEdit:(prodect:IProduct)=>void
-  openEditModal:()=>void
-  idx:number
-  setproductTOEditIdx:(value:number)=>void
+  setproductTOEdit: (prodect: IProduct) => void;
+  openEditModal: () => void;
+  idx: number;
+  setproductTOEditIdx: (value: number) => void;
+  openConfirmModal: () => void;
 }
 
 const ProductCard = (props: IProps) => {
+  //  HANDER-------------------------------------------------------------------->
 
+  const onEdit = () => {
+    props.setproductTOEdit(props.product);
+    props.openEditModal();
+    props.setproductTOEditIdx(props.idx);
+  };
+  const onRemove = () => {
+    props.setproductTOEdit(props.product);
+    props.openConfirmModal();
+  };
 
-
-    //  HANDER-------------------------------------------------------------------->
-
-    const onEdit=()=>{
-      props.setproductTOEdit(props.product)
-      props.openEditModal()
-      props.setproductTOEditIdx(props.idx)
-      
-    }
-
-    //  RANDER product---------------------------------------------------------------------------------->
+  //  RANDER product---------------------------------------------------------------------------------->
 
   const RanderProductColor = props.product.color.map((color) => (
     <CircelColor key={color} color={color} />
@@ -50,8 +51,8 @@ const ProductCard = (props: IProps) => {
         />
       </div>
       <div className="flex  space-x-2 justify-between items-center">
-        <Button className="bg-indigo-700 " textBtn="Edit" width="w-full"  onClick={onEdit}/>
-        <Button className="bg-red-700 " textBtn="Delete" width="w-full" />
+        <Button className="bg-indigo-700 " textBtn="Edit" width="w-full" onClick={onEdit} />
+        <Button className="bg-[#c2344d] hover:bg-red-800" textBtn="Delete" width="w-full" onClick={onRemove} />
       </div>
     </div>
   );
